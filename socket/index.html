@@ -1,0 +1,35 @@
+<html>
+<head>
+<title>Socket Programming</title>
+<style>
+</style>
+<link rel = "stylesheet" type = "text/css" href = "index.css"/>
+</head>
+<body>
+<h1>Network Programming Using Sockets</h1>
+<p>
+The term network programming refers to writing programs that execute across multiple devices (computers), in which the devices are all connected to each other using a network.</br></br>
+The 2 common netwrok protocols are :-
+<ol>
+<li><b>TCP</b> - TCP stands for Transmission Control Protocol, which allows for reliable communication between two applications. TCP is typically used over the Internet Protocol, which is referred to as TCP/IP.</li>
+<li><b> UDP </b>- UDP stands for User Datagram Protocol, a connection-less protocol that allows for packets of data to be transmitted between applications.</li>
+</ol>
+<h4>SOCKET PROGRAMMING</h4> 
+Sockets provide the communication mechanism between two computers using TCP.</br>
+A client program creates a socket on its end of the communication and attempts to connect that socket to a server.
+When the connection is made, the server creates a socket object on its end of the communication. The client and the server can now communicate by writing to and reading from the socket.
+Firstly connection is made and after that the tramsmission of message can be done using send and recv commands in TCP and sendto and recvfrom in UDP.
+Here, this method is structured and we have to maintain the flow of connection using appropriate send and recv commands.</br></br>
+
+Now we are making special changes as follows to increase the user interaction and satisfaction in transmission of messages.
+
+<h4>USE OF THREADS AND SEMAPHORES IN SOCKET PROGRAMMING:-</h4>
+A thread is a flow of execution through the process code, with its own program counter that keeps track of which instruction to execute next, system registers which hold its current working variables, and a stack which contains the execution history.</br></br>
+In socket programming we can use threads to run read and write functions sepearately such that we can read any message which is sent at any time and we can send a message anytime we want.</br></br>
+In computer science, a semaphore is a variable or abstract data type used to control access to a common resource by multiple processes in a concurrent system such as a multiprogramming operating system.
+So while running the read and write functions on the thread simultaneously, we can use semaphores so that both wont request for printing to screen at the same time and one function has to wait for the function to complete its printing execution.</br></br>
+
+</p>
+</br>
+</body>
+</html>

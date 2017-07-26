@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<style>
+
+#Bar0 {
+  width: 100px;
+  //  background-color: #39ff33;
+  border-style: solid;
+  text-align: center;
+}
+
+#Bar1 {
+  width: 100px;
+  //background-color: #FFFF00;
+  text-align: center;
+  border-style: solid;
+}
+
+#Bar2 {
+  width: 100px;
+  //background-color: #ff8633;
+  text-align: center;
+  border-style: solid;
+}
+
+#Bar3 {
+  width: 100px;
+  //background-color: #00FFFF;
+  text-align: center;
+  border-style: solid;
+}  
+#Bar4 {
+  width: 100px;
+  //background-color: #ff3333;
+  text-align: center;
+  border-style: solid;
+}
+#Bar5 {
+  width: 100px;
+  //background-color: #ff3333;
+  text-align: center;
+  border-style: solid;
+}
+#Bar6 {
+  width: 100px;
+  //background-color: #ff3333;
+  text-align: center;
+  border-style: solid;
+}
+#Bar {
+  width: 50%;
+  margin: 0px auto;
+  background-color: white;
+  height: 50px;
+  text-align: center;
+  border-style: solid;
+}
+
+</style>
+
+<body style="background:powderblue;">
+	<h1> Page Replacement Algorithm : FIFO </h1>
+	<div id="myProgress" style="width: 100%;">
+	</div>
+	<br>
+	<div id="noofhit" style="width: 100%;">
+		<p id="pn">Number of hits = 0<br>Number of miss = 0</p>
+	</div>
+	<br>
+	<button onclick="move1()">Click Me</button>
+	<script type="text/javascript">
+	var c="";
+	var requests = [0,1,2,4,1,2,3,2,1,5,4,7,8,6];
+	var present= [];
+	var frames = 4;
+	document.getElementById("myProgress").innerHTML = "<div id='Bar'><p id='p'></p></div><br><br>";
+	for(var i=0;i<frames;i++)
+	{
+		c+='<div id="Bar'+i+'"style = "height:75px; border-style:solid;"><p id = "p'+i+'" text-align="center"></p></div>';
+	}
+
+	var b = document.getElementById("myProgress");
+    b.innerHTML += c;
+    var i=0;
+    var hit=0;
+   	var miss = 0;
+
+    var counter = 0;
+    var time = [];
+    var faults = 0;
+    var changedNo = 0;
+    
+    for(j = 0; j < frames; ++j){
+        present[j] = -1;
+    }
+    function move1()
+    {
+    	var id = setInterval(move, 1000);
+	}
+    function move()
+    {
+    	if (i==requests.length)
+ 			clearInterval(id);   		
+    flag1 = flag2 = 0;
+	document.getElementById("Bar"+changedNo).style.backgroundColor = "white";
+	document.getElementById("p").innerHTML = "Page Requested = " + requests[i];
+    for(j = 0; j < frames; ++j){
+        if(present[j] == requests[i]){
+            counter++;
+            hit++;
+            time[j] = counter;
+            flag1 = flag2 = 1;
+            document.getElementById("Bar"+j).style.backgroundColor = "lightgreen";
+            changedNo = j;
+            break;
+            }
+        }
+        
+        if(flag1 == 0){
+            for(j = 0; j < frames; ++j){
+                if(present[j] == -1){
+                    counter++;
+                    faults++;
+                    present[j] = requests[i];
+                    time[j] = counter;
+                    document.getElementById("p"+j).innerHTML = "Page Number = " + present[j];
+                    document.getElementById("Bar"+j).style.backgroundColor = "pink";
+                    flag2 = 1;
+                    changedNo = j;
+                    break;
+                }
+            }    
+        }
+        
+        if(flag2 == 0){
+            min = time[0];
+            pos=0;
+            for(j=1;j<frames;j++)
+            {
+            	if(time[j]<min)
+	        		{
+	        			min=time[j];
+	        			pos=j;
+	        		}
+            }
+            counter++;
+            faults++;
+            present[pos] = requests[i];
+            document.getElementById("p"+pos).innerHTML = "Page Number = " + present[pos];
+            document.getElementById("Bar"+pos).style.backgroundColor = "pink";
+            time[pos] = counter;
+            changedNo = pos;
+        }
+        i++;
+        document.getElementById("pn").innerHTML = "Number of hits = "+hit+"<br>Number of miss = "+faults
+    }
+
+</script>
+	
+</body>	

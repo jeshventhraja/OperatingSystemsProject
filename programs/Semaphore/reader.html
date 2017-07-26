@@ -1,0 +1,8 @@
+<html>
+<body><hr><p> <p> <b>Reader Writer Problem</b>
+ </p><br></font></p><hr><p> <p> There is a shared resource which should be accessed by multiple processes. There are two types of processes in this context. They are reader and writer. Any number of readers can read from the shared resource simultaneously, but only one writer can write to the shared resource. When a writer is writing data to the resource, no other process can access the resource. A writer cannot write to the resource if there are non zero number of readers accessing the resource. 
+ </p><br></font></p><hr><p> <p> In our solution to the reader-writer problem we are using two semaphore variables-
+ </p><br></font></p><hr><p> <p> 1)wsem -This allows mutual exclusion between individual reader-writer processes.
+ </p><br></font></p><hr><p> <p> 2)x-This variable gives access to the write count variable.
+ </p><br></font></p><hr><p> <p> This gives us the readers priority solution.
+ </p><br></font></p></body></head>

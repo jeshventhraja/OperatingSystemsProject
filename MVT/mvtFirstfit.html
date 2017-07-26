@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<style>
+
+#myBar0 {
+  width: 200px;
+  //  background-color: #39ff33;
+  border-style: solid;
+  text-align: center;
+}
+
+#myBar1 {
+  width: 200px;
+  //background-color: #FFFF00;
+  text-align: center;
+  border-style: solid;
+}
+
+#myBar2 {
+  width: 200px;
+  //background-color: #ff8633;
+  text-align: center;
+  border-style: solid;
+}
+
+#myBar3 {
+  width: 200px;
+  //background-color: #00FFFF;
+  text-align: center;
+  border-style: solid;
+}  
+#myBar4 {
+  width: 200px;
+  //background-color: #ff3333;
+  text-align: center;
+  border-style: solid;
+}
+
+#myBar5 {
+  width: 50%;
+  margin: 0px auto;
+  //background-color: #ff3333;
+  height: 50px;
+  text-align: center;
+  border-style: solid;
+}
+
+}
+
+</style>
+<body style="background:powderblue;">
+
+<h1>MVT First Fit</h1>
+
+<div id="myProgress" style="width: 100%;">
+<center><pre id="pg" style="font-size: 120%; color: brown;" ></pre></center>
+<center><pre id="pg1" style="font-size: 120%; color: brown;" ></pre></center>
+<!-- <canvas id="myCanvas" width="250" height="250" style="border:1px solid #d3d3d3; float: right; margin: 100px;">Your browser does not support the canvas element.</canvas> -->
+</div>
+
+<br>
+<button onclick="move()">Click Me</button> 
+
+<script type="text/javascript">
+
+  // function func() {
+  //   document.getElementById("myBar5").style.backgroundColor = "black";
+  // }
+
+    var total,n,blocks,temp;
+    //var processes = new Array[20];
+    // var blocksize=new Array[20];
+    // for(var i=0;i<20;i++)
+    // {
+    //   blocksize[i]=new Array[2];
+    // }
+    total=0;
+    blocks=5;
+    temp=0;
+    var blocksize=[[50,0],[100,0],[150,0],[45,0],[65,0]];
+    n=5;
+    processes=[50,200,40,30,10];
+
+    document.getElementById("pg").innerHTML="Processes: ";
+    for(i=0;i<processes.length;i++)
+    {
+        document.getElementById("pg").innerHTML+=processes[i]+"   ";
+    }
+
+    document.getElementById("pg1").innerHTML="blocksizes: ";
+    for(i=0;i<processes.length;i++)
+    {
+        document.getElementById("pg1").innerHTML+=blocksize[i][0]+"   ";
+    }
+
+    document.getElementById("myProgress").innerHTML += "<div id='myBar5'><p id='p'></p></div><br><br>";
+    // document.getElementById("myProgress").innerHTML += '<canvas id="myCanvas" width="250" height="250" style="border:1px solid #d3d3d3; float: right; margin: 100px;">Your browser does not support the canvas element.</canvas>';
+    // var canvas = document.getElementById("myCanvas");
+    // var ctx = canvas.getContext("2d");
+
+
+    var c="";
+    for(var i=0;i<blocks;i++)
+    {
+      c+='<center><div id="myBar'+i+'" style="height:'+(blocksize[i][0])+'px; border-style:solid;"><p id="p'+i+'" text-align="center" style="font-size: 75%;" ></p></div></center>';
+    }
+    //<div id="myBar9'+i+'" style="height:'+blocksize[i][0]+'px; backgroundColor: white;></div> 
+    var b = document.getElementById("myProgress");
+    b.innerHTML += c; 
+
+    b.innerHTML+='<p id="p11" text-align="center" style="font-size: 75%;" >Internal fragmantation: </p>';
+    b.innerHTML+='<p id="p12" text-align="center" style="font-size: 75%;" >External fragmantation: </p>';
+
+
+    var j=0;
+    var i,a,flag,flag1,k,intfra=0,extfra=0;
+
+
+
+  function move()
+  {
+    // for(i=0;i<n;i++)
+    // {
+    //   if(j==blocks)
+    //   {
+    //     //printf("\nMemory is full!\n");
+    //     break;
+    //   }
+    //   a=processes[i];
+    //   document.getElementById("p").innerHTML = "Request = "+a;
+    //   flag=0;
+    //   for(k=0;k<blocks;k++)
+    //   {
+    //     if(blocksize[k][1]==1)  
+    //     {
+    //       continue;
+    //     }      
+    //     else
+    //     {
+    //       if(a<=blocksize[k][0])
+    //       {
+    //         //printf("\nProcess %d allocated memory\n",i+1);
+    //         document.getElementById("p"+k).innerHTML = "Process = "+(i+1);
+    //         intfra+=blocksize[k][0]-a;
+    //         j++;
+    //         blocksize[k][1]=1;
+    //         flag=1;
+    //         break;
+    //       }
+    //     }
+    //   }
+    //   if(flag==0)
+    //   {
+    //     //printf("\nBlock cannot accomodate this process\n");
+    //     document.getElementById("myBar5").style.backgroundColor = "red";
+    //     flag1=1;
+    //   }
+    // }
+
+
+    i=0;
+    var id = setInterval(frame, 1000);
+    function frame() {
+        if(i==n-1)
+        {
+            clearInterval(id);   
+            m();             
+        }
+        if(j==blocks)
+        {
+          //printf("\nMemory is full!\n");
+          //break;
+          clearInterval(id);
+        }
+        a=processes[i];
+        document.getElementById("p").innerHTML = "Request = "+a;
+        //setTimeout(func,1000);
+        document.getElementById("myBar5").style.backgroundColor = "lightgreen";
+        flag=0;
+        for(k=0;k<blocks;k++)
+        {
+          if(blocksize[k][1]==1)  
+          {
+            continue;
+          }      
+          else
+          {
+            if(a<=blocksize[k][0])
+            {
+              //printf("\nProcess %d allocated memory\n",i+1);
+              document.getElementById("p"+k).innerHTML = "Process = "+(i+1) + "<br>Internal fragmentation: " + (blocksize[k][0]-a);
+              intfra+=blocksize[k][0]-a;
+              j++;
+              blocksize[k][1]=1;
+              flag=1;
+              document.getElementById("p11").innerHTML="Internal fragmantation: "+intfra;
+              // ctx.font = "20px Arial";
+              // ctx.fillText("Internal fragmentation: ",30,30);
+              break;
+            }
+          }
+        }
+        if(flag==0)
+        {
+          //printf("\nBlock cannot accomodate this process\n");
+          //setTimeout(func,1000);
+          document.getElementById("myBar5").style.backgroundColor = "pink";
+          flag1=1;
+        }
+        i++;
+  }
+
+  function m()
+  {
+                extfra=total-temp;
+            if(flag1==1)
+            {
+              for(var x=0;x<blocks;x++)
+              {
+                if(blocksize[x][1]==0)
+                extfra+=blocksize[x][0];
+              }
+            }
+            document.getElementById("p12").innerHTML="External fragmantation: "+extfra;  
+  }
+
+}
+</script>
+
+</body>
+</html>
+

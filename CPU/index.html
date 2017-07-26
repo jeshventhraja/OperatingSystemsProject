@@ -1,0 +1,189 @@
+<html>
+<head>
+<title>CPU Scheduling Algorithms</title>
+<style>
+
+#myBar0 {
+  width: 0%;
+  height: 50px;
+  background-color: #BB0000;
+  border-style: solid;
+  border-color: #550000;
+  text-align: center;
+  border-width: 5px;
+}
+
+#myBar1 {
+  width: 0%;
+  height: 50px;
+  background-color: #00BB00;
+  text-align: center;
+  border-style: solid;
+  border-color: #005500;
+  border-width: 5px;
+}
+
+#myBar2 {
+  width: 0%;
+  height: 50px;
+  background-color: #0000BB;
+  text-align: center;
+  border-style: solid;
+  border-color: #000055;
+  border-width: 5px;
+}
+
+#myBar3 {
+  width: 0%;
+  height: 50px;
+  background-color: #00BBBB;
+  text-align: center;
+  border-style: solid;
+  border-color: #005555;
+  border-width: 5px;
+}  
+#myBar4 {
+  width: 0%;
+  height: 50px;
+  background-color: #BBBB00;
+  text-align: center;
+  border-style: solid;
+  border-color: #555500;
+  border-width: 5px;
+}
+
+}
+
+</style>
+<link rel = "stylesheet" type = "text/css" href = "index.css"/>
+</head>
+<body>
+<h1>CPU Scheduling Algorithms</h1>
+<p>
+
+
+
+<h4>First-Come, First-Served Scheduling</h4>
+
+In this scheme, the process that requests the
+CPU first is allocated the CPU first. The implementation of the FCFS policy is
+easily managed with a FIFO queue. When a process enters the ready queue, its
+PCB is linked onto the tail of the queue. When the CPU is free, it is allocated to
+the process at the head of the queue. The running process is then removed from
+the queue.
+
+<h4>Shortest-Job-First Scheduling</h4>
+This algorithm associates with each process the length of the
+process’s next CPU burst. When the CPU is available, it is assigned to the
+process that has the smallest next CPU burst. If the next CPU bursts of two
+processes are the same, FCFS scheduling is used to break the tie. Note that a
+more appropriate term for this scheduling method would be the shortest-next-
+CPU-burst algorithm, because scheduling depends on the length of the next
+CPU burst of a process, rather than its total length.
+
+<h4>Shortest Remaining Time First</h4>
+
+The SJF algorithm can be either preemptive or nonpreemptive. The choice
+arises when a new process arrives at the ready queue while a previous process is
+still executing. The next CPU burst of the newly arrived process may be shorter
+than what is left of the currently executing process.Apreemptive SJF algorithm
+will preempt the currently executing process, whereas a nonpreemptive SJF
+algorithm will allow the currently running process to finish its CPU burst.
+Preemptive SJF scheduling is sometimes called shortest-remaining-time-first
+scheduling.
+<h4>Non-Preemptive Priority Scheduling</h4>
+
+Apriority is associated with each process, and the CPUis allocated to the process
+with the highest priority. Equal-priority processes are scheduled in FCFS order.
+An SJF algorithm is simply a priority algorithm where the priority (p) is the
+inverse of the (predicted) next CPU burst. The larger the CPU burst, the lower
+the priority, and vice versa
+
+<h4>Preemptive Priority Scheduling</h4>
+ A preemptive priority scheduling algorithm
+will preempt the CPU if the priority of the newly arrived process is higher
+than the priority of the currently running process. A nonpreemptive priority
+scheduling algorithm will simply put the new process at the head of the ready
+queue.
+
+<h4>Round Robin Scheduling</h4>
+The  round robin scheduling algorithm is designed especially for timesharing
+systems. It is similar to FCFS scheduling, but preemption is added to
+enable the system to switch between processes. A small unit of time, called a
+time quantum or time slice, is defined. A time quantum is generally from 10
+to 100 milliseconds in length. The ready queue is treated as a circular queue.
+
+
+</p>
+</br>
+<div id="myProgress"><center>
+<pre id="pg" style="font-size: 150%; color: brown;" ></pre>
+</center>
+</div>
+
+<br>
+<button onclick="move()">Click Me</button> 
+
+<script type="text/javascript">
+  function move()
+  {
+    var a=" ";
+    var string = "5 5 4 4 3 2 1 1 2 2 2 3 1 1 1 3 4 5 2 4 4 5 3 3";
+    var string1 = "5   5   4   4   3   2   1   1   2   2   2   3   1   1   1   3   4   5   2   4   4   5   3   3";
+    var array1 = string.split(" ");
+    var t =array1[0];
+    var array = []
+    var n = [];
+    var i;
+    for(i=0;i<t;i++)
+    {
+      n[i]=array1[i+1];
+    }
+    for(i++;i<array1.length;i++)
+    {
+      array[i-t]=array1[i];
+    } 
+    document.getElementById("pg").innerHTML="Gantt Chart: " + string1;
+    for (var i=0;i<t;i++)
+    {
+      a+='<div id=\"myBar'+i+'\"><p id="p'+i+'" text-align="center"></p></div><br>';
+    }
+    var b = document.getElementById("myProgress");
+    b.innerHTML += a;
+    var elem = [];
+    var width = [];
+    for (var i=0;i<t;i++)
+    {
+      s ="myBar";
+      s+= i;
+      width[i]=0;
+      elem[i] = document.getElementById(s);
+    }
+    i=0;
+    var id = setInterval(frame, 500);
+    function frame() {
+        if(i==(array.length+1))
+          {
+            clearInterval(id);
+              elem.style.width = 0 + '%';
+              elem1.style.width = 0 + '%';
+              elem2.style.width = 0 + '%';
+              
+          }
+        for (var j =0 ; j < t; j++)
+        {
+        if(array[i]==j+1)
+          {
+            width[j] += 100/n[j];
+            elem[j].style.width = width[j] + '%';
+            document.getElementById("p"+j).innerHTML = width[j]+"%";
+          }  
+        }
+      i++;
+    }
+
+  }
+</script>
+
+</body>
+</html>

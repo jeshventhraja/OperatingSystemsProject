@@ -1,0 +1,36 @@
+a:link, a:visited{
+	background-color: #f23309;
+	border: 1px solid #f54231;
+	color: white;
+	margin: 8px;
+	padding: 11px 23px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	border-radius: 5%;
+}
+
+a:hover, a:active{
+	background-color: red;
+}
+
+h1{
+	font-family: Verdana, Geneva, sans-serif;
+	color: #124321;
+	text-align: center;
+}
+
+h1{
+	text-decoration: underline;
+}
+
+h4{
+	text-decoration: bold;
+	color: #361202;
+}
+
+body{
+	background-color: #b0e0e6;
+	
+}

@@ -1,0 +1,321 @@
+<html>
+<head>
+<title>MVT</title>
+<style>
+
+#myBar0 {
+  width: 100px;
+  //  background-color: #39ff33;
+  border-style: solid;
+  text-align: center;
+}
+
+#myBar1 {
+  width: 100px;
+  //background-color: #FFFF00;
+  text-align: center;
+  border-style: solid;
+}
+
+#myBar2 {
+  width: 100px;
+  //background-color: #ff8633;
+  text-align: center;
+  border-style: solid;
+}
+
+#myBar3 {
+  width: 100px;
+  //background-color: #00FFFF;
+  text-align: center;
+  border-style: solid;
+}  
+#myBar4 {
+  width: 100px;
+  //background-color: #ff3333;
+  text-align: center;
+  border-style: solid;
+}
+
+#myBar5 {
+  width: 50%;
+  margin: 0px auto;
+  //background-color: #ff3333;
+  height: 50px;
+  text-align: center;
+  border-style: solid;
+}
+
+}
+
+</style>
+<link rel = "stylesheet" type = "text/css" href = "index.css"/>
+</head>
+<body>
+<h1>MVT</h1>
+<p>
+In the variable-partition scheme, the operating system keeps a table
+indicating which parts of memory are available and which are occupied.
+Initially, all memory is available for user processes and is considered one
+large block of available memory, a hole. Eventually, memory
+contains a set of holes of various sizes.</br></br>
+
+As processes enter the system, they are put into an input queue. The
+operating system considers the memory requirements of each process
+and the amount of available memory space in determining which processes are
+allocated memory. When a process is allocated space, it is loaded into memory,
+and it can then compete for CPU time. When a process terminates, it releases its
+memory, which the operating system may then fill with another process from
+the input queue.
+</br></br>
+At any given, then, we have a list of available block sizes and an
+input queue. The operating system can order the input queue according to
+a scheduling algorithm. Memory is allocated to processes until, finally, the
+memory requirements of the next process cannot be satisfied—that is, no
+available block of memory (or hole) is large enough to hold that process. The
+operating system can then wait until a large enough block is available, or it can
+skip down the input queue to see whether the smaller memory requirements
+of some other process can be met.</br></br>
+
+In general, as mentioned, the memory blocks available comprise a set of
+holes of various sizes scattered throughout memory. When a process arrives
+and needs memory, the system searches the set for a hole that is large enough
+for this process. If the hole is too large, it is split into two parts. One part is
+allocated to the arriving process; the other is returned to the set of holes. When
+a process terminates, it releases its block of memory, which is then placed back
+in the set of holes. If the new hole is adjacent to other holes, these adjacent holes
+are merged to form one larger hole. At this point, the system may need to check
+whether there are processes waiting for memory and whether this newly freed
+and recombined memory could satisfy the demands of any of these waiting
+processes.</br></br>
+
+This procedure is a particular instance of the general dynamic storage allocation
+problem, which concerns how to satisfy a request of size ‘n’ from a
+list of free holes. There are many solutions to this problem. The first-fit, best-fit,
+and worst-fit strategies are the ones most commonly used to select a free hole
+from the set of available holes.</br></br>
+<ul>
+
+<li><b>First fit</b>. Allocate the first hole that is big enough. Searching can start either
+at the beginning of the set of holes or at the location where the previous
+first-fit search ended. We can stop searching as soon as we find a free hole
+that is large enough.</li>
+
+<li><b>Best fit</b>. Allocate the smallest hole that is big enough. We must search the
+entire list, unless the list is ordered by size. This strategy produces the
+smallest leftover hole.</li>
+<li><b>Worst fit</b>. Allocate the largest hole. Again, we must search the entire list,
+unless it is sorted by size. This strategy produces the largest leftover hole,
+which may be more useful than the smaller leftover hole from a best-fit
+approach.</li></br></br>
+</ul>
+Simulations have shown that both first fit and best fit are better than worst
+fit in terms of decreasing time and storage utilization. Neither first fit nor best
+fit is clearly better than the other in terms of storage utilization, but first fit is
+generally faster.
+</p>
+</br>
+<div id="myProgress" style="width: 100%;">
+<center><pre id="pg" style="font-size: 120%; color: brown;" ></pre></center>
+<center><pre id="pg1" style="font-size: 120%; color: brown;" ></pre></center>
+</div>
+
+<br>
+<button onclick="move()">Click Me</button> 
+
+<script type="text/javascript">
+
+  // function func() {
+  //   document.getElementById("myBar5").style.backgroundColor = "black";
+  // }
+
+  var tempArray=[];
+
+    var total,n,blocks,temp,m,g,t;
+    //var processes = new Array[20];
+    // var blocksize=new Array[20];
+    // for(var i=0;i<20;i++)
+    // {
+    //   blocksize[i]=new Array[2];
+    // }
+    total=0;
+    blocks=5;
+    temp=0;
+    var blocksize=[[50,0],[100,0],[150,0],[45,0],[65,0]];
+    n=5;
+    processes=[50,200,40,30,10];
+
+    document.getElementById("pg").innerHTML="Processes: ";
+    for(i=0;i<processes.length;i++)
+    {
+        document.getElementById("pg").innerHTML+=processes[i]+"   ";
+    }
+
+    document.getElementById("pg1").innerHTML="blocksizes: ";
+    for(i=0;i<processes.length;i++)
+    {
+        document.getElementById("pg1").innerHTML+=blocksize[i][0]+"   ";
+    }
+    
+    document.getElementById("myProgress").innerHTML += "<div id='myBar5'><p id='p'></p></div><br><br>";
+
+    for(m=0;m<blocks;m++)
+    {
+      tempArray.push([blocksize[m][0],0,m]);
+    }
+
+    for(m=0;m<blocks;m++)
+    {
+      pos=m;
+      min=tempArray[m][0];
+      for(g=m+1;g<blocks;g++)
+      {
+        if(tempArray[g][0]<min)
+        {
+          pos=g;
+          min=tempArray[g][0];
+        }
+      }
+      t=tempArray[m][0];
+      tempArray[m][0]=tempArray[pos][0];
+      tempArray[pos][0]=t;
+      t=tempArray[m][02];
+      tempArray[m][2]=tempArray[pos][2];
+      tempArray[pos][2]=t;
+    }
+
+    var c="";
+    for(var i=0;i<blocks;i++)
+    {
+      c+='<div id="myBar'+i+'" style="height:'+blocksize[i][0]+'px; border-style:solid;"><p id="p'+i+'" text-align="center"></p></div>';
+    }
+    var b = document.getElementById("myProgress");
+    b.innerHTML += c; 
+    b.innerHTML+='<p id="p11" text-align="center" style="font-size: 75%;" >Internal fragmantation: </p>';
+    b.innerHTML+='<p id="p12" text-align="center" style="font-size: 75%;" >External fragmantation: </p>';    
+
+  function move()
+  {
+
+
+    var j=0;
+    var i,a,flag,flag1,k,intfra=0,extfra=0;
+    // for(i=0;i<n;i++)
+    // {
+    //   if(j==blocks)
+    //   {
+    //     //printf("\nMemory is full!\n");
+    //     break;
+    //   }
+    //   a=processes[i];
+    //   document.getElementById("p").innerHTML = "Request = "+a;
+    //   flag=0;
+    //   for(k=0;k<blocks;k++)
+    //   {
+    //     if(blocksize[k][1]==1)  
+    //     {
+    //       continue;
+    //     }      
+    //     else
+    //     {
+    //       if(a<=blocksize[k][0])
+    //       {
+    //         //printf("\nProcess %d allocated memory\n",i+1);
+    //         document.getElementById("p"+k).innerHTML = "Process = "+(i+1);
+    //         intfra+=blocksize[k][0]-a;
+    //         j++;
+    //         blocksize[k][1]=1;
+    //         flag=1;
+    //         break;
+    //       }
+    //     }
+    //   }
+    //   if(flag==0)
+    //   {
+    //     //printf("\nBlock cannot accomodate this process\n");
+    //     document.getElementById("myBar5").style.backgroundColor = "red";
+    //     flag1=1;
+    //   }
+    // }
+    // extfra=total-temp;
+    // if(flag1==1)
+    // {
+    //   for(i=0;i<blocks;i++)
+    //   {
+    //     if(blocksize[i][1]==0)
+    //       extfra+=blocksize[i][0];
+    //   }
+    // }
+
+    i=0;
+    var id = setInterval(frame, 1000);
+    function frame() {
+        if(i==n)
+          {
+            clearInterval(id);    
+            m();  
+            return;
+          }
+        if(j==blocks)
+        {
+          //printf("\nMemory is full!\n");
+          //break;
+          clearInterval(id);
+          m();
+        }
+        a=processes[i];
+        document.getElementById("p").innerHTML = "Request = "+a;
+        //setTimeout(func,1000);
+        document.getElementById("myBar5").style.backgroundColor = "lightgreen";
+        flag=0;
+        for(k=0;k<blocks;k++)
+        {
+          if(tempArray[k][1]==1)  
+          {
+            continue;
+          }      
+          else
+          {
+            if(a<=tempArray[k][0])
+            {
+              //printf("\nProcess %d allocated memory\n",i+1);
+              document.getElementById("p"+tempArray[k][2]).innerHTML = "Process = "+(i+1);
+              document.getElementById("p11").innerHTML="Internal fragmantation: "+intfra;
+              intfra+=tempArray[k][0]-a;
+              j++;
+              tempArray[k][1]=1;
+              flag=1;
+              break;
+            }
+          }
+        }
+        if(flag==0)
+        {
+          //printf("\nBlock cannot accomodate this process\n");
+          //setTimeout(func,1000);
+          document.getElementById("myBar5").style.backgroundColor = "pink";
+          flag1=1;
+        }
+        i++;
+  }
+    function m()
+  {
+                extfra=total-temp;
+            if(flag1==1)
+            {
+              for(var x=0;x<blocks;x++)
+              {
+                if(tempArray[x][1]==0)
+                extfra+=tempArray[x][0];
+              }
+            }
+            document.getElementById("p12").innerHTML="External fragmantation: "+extfra;  
+  }
+}
+</script>
+</br>
+<a href = "mvtFirstfit.html">First Fit</a>
+</br>
+<a href = "mvtWorstfit.html">Worst Fit</a>
+</body>
+</html>

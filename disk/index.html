@@ -1,0 +1,109 @@
+<html>
+<head>
+<title>Disk Scheduling</title>
+<style>
+</style>
+<link rel = "stylesheet" type = "text/css" href = "index.css"/>
+</head>
+<body>
+<h1>Disk Scheduling Algorithms </h1>
+<p>
+<h4>1. FCFS(First Come First Serve)</h4>
+ 
+i) In this Jobs or Processes are Executed in the Manner in which they are entered into the Computer. </br>
+ii) In this Operating System creates a queue which contains the Sequence Order in which they are to be Executed and the Sequence in which the CPU will Execute the Process.</br>
+iii) In this all the Jobs are performed according to their Sequence Order as they have entered. In this the Job which had Requested first will firstly performed by the CPU. </br>
+iv) And the Jobs those are entered Later will be Executed in to their Entering Order. </br></br></br></br>
+
+<h4>2. SSTF(Shortest Seek Time First)</h4>
+i) In this Technique The Operating System will Search for the Shortest time means this will search which job will takes a Less Time of CPU for Running.</br>
+ii) And After Examining all the jobs, all the Jobs are arranged in the Sequence wise or they are Organized into the Priority Order.</br>
+iii) The Priority of the Process will be the Total Time which a Process will use For Execution.</br>
+iv) The Shortest Seek Time Will Include all the Time means Time to Enter and Time to Completion of the Process. Means the Total Time which a Process Will Take For Execution.</br></br></br></br>
+
+<h4>3. SCAN</h4>
+An elevator is designed to visit floors that have people waiting. In general, an elevator moves from one extreme to the other (say, the top of the building to the bottom), servicing requests as appropriate. The SCAN disk-scheduling algorithm works in a similar way, except instead of moving up and down, the read/write heads move in toward the spindle, then out toward the platter edge, then back toward the spindle, and so forth.</br></br></br></br>
+
+<h4>4. C-SCAN</h4>
+i) In the C-Scan all the Processes are Arranged by using Some Circular List.</br>
+ii) Circular List is that in which there is no start and end point of the list means the End of the List is the Starting Point of the list.</br> 
+iii) In the C-Scan Scheduling the CPU will search for the Process from Start to end and if an End has Found then this again start from the Starting Process. </br>
+iv) Because Many Times When a CPU is executing the processes then may a user wants to enter some data means a user wants to enter Some data So that at that Situation the CPU will Again Execute that Process after the Input Operation. So that C-Scan Scheduling is used for Processing Same Processes again and Again.</br></br></br></br>
+
+<h4>5. LOOK</h4>
+In the Look Scheduling the CPU Scans the List from Starting to End of the Disk in which the various Processes are Running and in the Look Scheduling the CPU will Scan the Entire Disk from one End to the Second end.</br></br></br></br>
+
+<h4>C-LOOK</h4>
+i) This is just an enhanced version of C-SCAN.</br>
+ii) In this the scanning doesn't go past the last request in the direction that it is moving. </br>
+iii)It too jumps to the other end but not all the way to the end. Just to the furthest request.</br>
+</p>
+<center><pre id="pg" style="font-size: 150%; color: brown;" ></pre></center>
+<center><pre id="pg1" style="font-size: 120%; color: brown;" >Present Disk: 0</pre></center>
+
+<center><canvas id="myCanvas" width="1250" height="400"
+style="border:1px solid #d3d3d3;">
+Your browser does not support the canvas element.
+</canvas></center>
+<button onclick="move()">Click Me</button> 
+
+<script>
+
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+
+requests=[20,45,70,100,400,200,333,123,560,5,250];
+document.getElementById("pg").innerHTML="Requests: ";
+for(i=0;i<requests.length;i++)
+{
+    document.getElementById("pg").innerHTML+=requests[i]+"   ";
+}
+
+    ctx.font = "15px Arial";
+    ctx.fillText(0,0,30);
+    ctx.fillText(600,2*600,30);
+    ctx.moveTo(0,50);
+    ctx.lineTo(0,400);
+    ctx.stroke();
+    ctx.moveTo(2*600,50);
+    ctx.lineTo(2*600,400);
+    ctx.stroke();
+
+for(var i=0;i<11;i++)
+{
+	ctx.font = "15px Arial";
+	ctx.fillText(requests[i],2*requests[i],30);
+	ctx.moveTo(2*requests[i],50);
+    ctx.lineTo(2*requests[i],400);
+    ctx.stroke();
+}
+
+ctx.moveTo(0,50);
+
+function move()
+{
+	var pos=0,pos1=0,pos2=50;
+	var id = setInterval(frame,1000);
+    function frame()
+    {
+    	pos1=2*requests[pos];
+        pos2+=25;
+    	if(pos==11)
+        {	
+        	clearInterval(id);
+        }
+        else
+        {
+        	ctx.lineTo(pos1,pos2);
+            ctx.stroke();
+            document.getElementById("pg1").innerHTML="Present Disk: "+requests[pos];
+        }
+        pos++;       
+    }
+}
+
+</script>
+</br>
+<a href = "lru.html">Link To Animation For LRU Page Replacement Algorithm</a>
+</body>
+</html>

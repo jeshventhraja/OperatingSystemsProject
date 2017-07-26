@@ -1,0 +1,6 @@
+<b>Sleeping Barber Problem</b>
+There is one barber in the barber shop, one barber chair and n chairs for waiting customers. If there are no customers, the barber sits down in the barber chair and takes a nap. An arriving customer must wake the barber. Subsequent arriving customers take a waiting chair if any are empty or leave if all chairs are full. This problem addresses race conditions. 
+This solution uses three semaphores-
+1)custReady-To indicate if a customer is ready or not.
+2)accessSeats-This gives mutual exclusion while accessing the seat count variable.
+3)barbReady-This indicates if the barber is ready. 
